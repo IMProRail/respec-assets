@@ -6,7 +6,7 @@ var organisationConfig = {
   // bv styles url voor ander GN publicatiedomein met eigen stijlen zoals DSO of BRO:
   // nl_organisationStylesURL: "https://tools.geostandaarden.nl/respec/dso/style/",
   // nl_organisationStylesURL: "https://tools.geostandaarden.nl/respec/bro/style/",
-  nl_organisationPublishURL: "https://docs.prorail.nl/",
+  nl_organisationPublishURL: "https://improrail.github.io/docs",
   logos: [
     {
       src: "https://www.prorail.nl/static/assets/brands/default/images/logo_default.svg?v=20250513",

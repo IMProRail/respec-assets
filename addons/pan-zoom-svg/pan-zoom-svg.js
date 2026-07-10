@@ -199,6 +199,14 @@ a.download = filename + ".svg";
     }
 
     function scan() {
+
+         const svgs = document.querySelectorAll("svg");
+
+    console.log("SVG's gevonden:", svgs.length);
+
+    svgs.forEach(enablePanZoom);
+
+    
         document
             .querySelectorAll("svg")
             .forEach(enablePanZoom);
