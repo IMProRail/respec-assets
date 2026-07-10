@@ -1,0 +1,82 @@
+.svg-controls {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+
+    display: grid;
+    grid-template-columns: 24px 24px 24px;
+    grid-template-rows: 24px 24px 24px;
+
+    gap: 2px;
+
+    z-index: 10;
+}
+
+.svg-controls button {
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid #bbb;
+    border-radius: 12px;
+    background-color: #fff;
+
+    font-size: 12px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.svg-controls button:hover {
+    background: #eee;
+}
+
+.svg-controls button[title="Omhoog"] {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.svg-controls button[title="Links"] {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.svg-controls button[title="Rechts"] {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.svg-controls button[title="Omlaag"] {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.svg-controls button[title="Inzoomen"] {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.svg-controls button[title="Uitzoomen"] {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.svg-controls button[title="Reset"] {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.svg-controls button[title="Vergroot"] {
+    grid-column: 1;
+    grid-row: 3;
+}
+
+.svg-controls button[title="Download"] {
+    grid-column: 3;
+    grid-row: 3;
+}
