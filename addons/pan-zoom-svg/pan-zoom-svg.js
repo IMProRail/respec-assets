@@ -239,25 +239,32 @@ a.download = filename + ".svg";
         console.log("Pan/Zoom observer gestart.");
     }
 
-    function start() {
+function start() {
 
-        if (document.respec?.ready) {
-
-            document.respec.ready.then(() => {
-                console.log("ReSpec klaar.");
-                observe();
-            });
-
-        } else if (document.readyState === "loading") {
-
-            document.addEventListener("DOMContentLoaded", observe);
-
-        } else {
-
-            observe();
-
-        }
+    function init() {
+        observe();
     }
+
+    // ReSpec aanwezig?
+    if (window.respecConfig && document.respec?.ready) {
+
+        document.respec.ready.then(init);
+        return;
+
+    }
+
+    // Gewone HTML
+    if (document.readyState === "loading") {
+
+        document.addEventListener("DOMContentLoaded", init, { once: true });
+
+    } else {
+
+        init();
+
+    }
+
+}
 
     start();
 
