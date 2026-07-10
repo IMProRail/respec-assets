@@ -200,76 +200,64 @@ a.download = filename + ".svg";
 
     function scan() {
         document
-            .querySelectorAll("figure svg")
+            .querySelectorAll("svg")
             .forEach(enablePanZoom);
     }
 
     function observe() {
 
-        // eerst bestaande SVG's
-        scan();
+    const observer = new MutationObserver(mutations => {
 
-        const observer = new MutationObserver(mutations => {
+        for (const mutation of mutations) {
 
-            for (const mutation of mutations) {
+            for (const node of mutation.addedNodes) {
 
-                for (const node of mutation.addedNodes) {
+                if (node.nodeType !== Node.ELEMENT_NODE) {
+                    continue;
+                }
 
-                    if (node.nodeType !== Node.ELEMENT_NODE) {
-                        continue;
-                    }
-
-                    // Direct een svg toegevoegd?
-                    if (node.matches?.("svg")) {
-                        enablePanZoom(node);
-                    }
-
-                    // Of bevat het nieuwe node ergens svg's?
+                if (node.matches?.("svg")) {
+                    enablePanZoom(node);
+                } else {
                     node.querySelectorAll?.("svg").forEach(enablePanZoom);
                 }
             }
+        }
 
-        });
+    });
 
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
 
-        console.log("Pan/Zoom observer gestart.");
-    }
-
-function start() {
-
-    function init() {
-        observe();
-    }
-
-    // ReSpec aanwezig?
-    if (window.respecConfig && document.respec?.ready) {
-
-        console.log('window.respecConfig && document.respec?.ready');
-        document.respec.ready.then(init);
-        return;
-
-    }
-
-    // Gewone HTML
-    if (document.readyState === "loading") {
-
-        console.log('readyState === loading');
-
-        document.addEventListener("DOMContentLoaded", init, { once: true });
-
-    } else {
-
-        console.log('init other');
-
-        init();
-
-    }
-
+    console.log("Pan/Zoom observer gestart.");
 }
+
+    function start() {
+
+        function init() {
+            scan();
+            observe();
+        }
+
+        if (window.respecConfig && document.respec?.ready) {
+
+            console.log("ReSpec");
+            document.respec.ready.then(init);
+
+        } else if (document.readyState === "loading") {
+
+            console.log("DOMContentLoaded");
+            document.addEventListener("DOMContentLoaded", init, { once: true });
+
+        } else {
+
+            console.log("Direct");
+            init();
+
+        }
+    }
 
     start();
 
