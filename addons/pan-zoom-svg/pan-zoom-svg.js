@@ -248,6 +248,7 @@ function start() {
     // ReSpec aanwezig?
     if (window.respecConfig && document.respec?.ready) {
 
+        console.log('window.respecConfig && document.respec?.ready');
         document.respec.ready.then(init);
         return;
 
@@ -256,9 +257,13 @@ function start() {
     // Gewone HTML
     if (document.readyState === "loading") {
 
+        console.log('readyState === loading');
+
         document.addEventListener("DOMContentLoaded", init, { once: true });
 
     } else {
+
+        console.log('init other');
 
         init();
 
