@@ -200,61 +200,61 @@ a.download = filename + ".svg";
 
     function scan() {
         document
-            .querySelectorAll("svg")
+            .querySelectorAll("figure svg")
             .forEach(enablePanZoom);
     }
 
     function observe() {
 
-    const observer = new MutationObserver(mutations => {
+        // eerst bestaande SVG's
+        scan();
 
-        for (const mutation of mutations) {
+        const observer = new MutationObserver(mutations => {
 
-            for (const node of mutation.addedNodes) {
+            for (const mutation of mutations) {
 
-                if (node.nodeType !== Node.ELEMENT_NODE) {
-                    continue;
-                }
+                for (const node of mutation.addedNodes) {
 
-                if (node.matches?.("svg")) {
-                    enablePanZoom(node);
-                } else {
+                    if (node.nodeType !== Node.ELEMENT_NODE) {
+                        continue;
+                    }
+
+                    // Direct een svg toegevoegd?
+                    if (node.matches?.("svg")) {
+                        enablePanZoom(node);
+                    }
+
+                    // Of bevat het nieuwe node ergens svg's?
                     node.querySelectorAll?.("svg").forEach(enablePanZoom);
                 }
             }
-        }
 
-    });
+        });
 
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
 
-    console.log("Pan/Zoom observer gestart.");
-}
+        console.log("Pan/Zoom observer gestart.");
+    }
 
     function start() {
 
-        function init() {
-            scan();
-            observe();
-        }
+        if (document.respec?.ready) {
 
-        if (window.respecConfig && document.respec?.ready) {
-
-            console.log("ReSpec");
-            document.respec.ready.then(init);
+            document.respec.ready.then(() => {
+                console.log("ReSpec klaar.");
+                observe();
+            });
 
         } else if (document.readyState === "loading") {
 
-            console.log("DOMContentLoaded");
-            document.addEventListener("DOMContentLoaded", init, { once: true });
+            document.addEventListener("DOMContentLoaded", observe);
 
         } else {
 
-            console.log("Direct");
-            init();
+            observe();
 
         }
     }
