@@ -42,7 +42,7 @@
 
     update();
 
-    svg.style.width = "";
+    svg.style.width = svg.dataset.originalWidth;
     svg.style.maxWidth = "";
 
     delete svg.dataset.expanded;
