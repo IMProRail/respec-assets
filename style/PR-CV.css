@@ -1,0 +1,7 @@
+/* Style for ProRail Consultatieversie */
+
+@import "base.css";
+
+body {
+  background-image: url('https://localhost:8000/respec/style/logos/PR-CV.svg');
+}
