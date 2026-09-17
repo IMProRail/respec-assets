@@ -1,4 +1,4 @@
-// Dit bestand is gepubliceerd als https://tools.geostandaarden.nl/respec/config/geonovum-config.js, voor hergebruik in IMProRail ReSpec documenten.
+// Dit bestand is gepubliceerd als https://raw.githubusercontent.com/IMProRail/respec-assets/refs/heads/main/js/prorail-config.js, voor hergebruik in IMProRail ReSpec documenten.
 var organisationConfig = {
   nl_organisationName: "ProRail",
   nl_organisationStylesURL: "https://improrail.github.io/respec-assets/style/",
