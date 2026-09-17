@@ -606,7 +606,7 @@ a[href]:not(.leaflet-top .leaflet-left):active {
   border-color: #c00;
 }
 
-/* Backout above styling for Geonovum logo */
+/* Backout above styling for ProRail logo */
 .head p:not(.copyright) > a,
 .head > a:first-child {
   border: none;
@@ -643,16 +643,10 @@ figure object {
   margin: auto;
 }
 
-/*
-Thijs Brentjens Geonovum: a fix to show images that get a width=0 and height=0 by ReSpec and thus are hidden
-See https://github.com/Geonovum/respec/issues/153
- */
 .figure img, .sidefigure img, figure img, .figure object, .sidefigure object, figure object {
  /*height: 100%;*/
  width: auto;
 }
-
-/* end customization Geonovum fix */
 
 .figure pre,
 .sidefigure pre,
@@ -948,21 +942,6 @@ td {
   text-align: start;
 }
 
-/* Thijs Brentjens Geonovum add a thin border for tables as a default  */
-/* TODO :fix issue with localstyle for https://docs.geostandaarden.nl/md/mdprofiel-iso19115/ */
-
-/*table, tr, td, th {
-    border: none;
-}
-
-td {
-    border-top: 1px solid #ddd;
-}*/
-
-/** Property/Descriptor Definition Tables *************************************/
-
-/* wilkoquak: Deze styles zijn toegevoegd omdat Imvertor nieuwe label aan een catalogus toevoegt */
-
 table.overview, table.list {
   border-spacing: 0;
   border-collapse: collapse;
@@ -1164,8 +1143,6 @@ table.data img {
   vertical-align: middle;
 }
 
-/* table.simple toegevoegd op 11-10-2023 door Gerard Wolbers, Geonovum */
-/* Het is grotendeels overgenomen uit respec-mainstyle, een stijldefinitie dat door respec in de bestanden wordt gegenereerd. */
 
 table.simple {
   border-spacing: 0;
