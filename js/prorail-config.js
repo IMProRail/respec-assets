@@ -1,11 +1,7 @@
-// Dit bestand is gepubliceerd als https://tools.geostandaarden.nl/respec/config/geonovum-config.js, voor hergebruik in Geonovum ReSpec documenten.
+// Dit bestand is gepubliceerd als https://tools.geostandaarden.nl/respec/config/geonovum-config.js, voor hergebruik in IMProRail ReSpec documenten.
 var organisationConfig = {
   nl_organisationName: "ProRail",
-  // werkt nog niet
   nl_organisationStylesURL: "https://improrail.github.io/respec-assets/style/",
-  // bv styles url voor ander GN publicatiedomein met eigen stijlen zoals DSO of BRO:
-  // nl_organisationStylesURL: "https://tools.geostandaarden.nl/respec/dso/style/",
-  // nl_organisationStylesURL: "https://tools.geostandaarden.nl/respec/bro/style/",
   nl_organisationPublishURL: "https://improrail.github.io/docs",
   logos: [
     {
