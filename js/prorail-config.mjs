@@ -1,6 +1,8 @@
+// Dit bestand is gepubliceerd als https://improrail.github.io/respec-assets/js/prorail-config.js, voor hergebruik in IMProRail ReSpec documenten.
+
 const organisationConfig = {
   nl_organisationName: "ProRail",
-  nl_organisationStylesURL: "https://gitdocumentatie.logius.nl/publicatie/respec/style/",
+  nl_organisationStylesURL: "https://improrail.github.io/respec-assets/style/",
   nl_organisationPublishURL: "https://improrail.github.io/docs/",
 
   logos: [{
