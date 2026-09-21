@@ -1,4 +1,5 @@
-// Dit bestand is gepubliceerd als https://improrail.github.io/respec-assets/js/prorail-config.mjs, voor hergebruik in IMProRail ReSpec documenten.
+// Dit bestand is gepubliceerd als https://improrail.github.io/respec-assets/js/prorail-config.mjs,
+// voor hergebruik in IMProRail ReSpec documenten.
 
 const organisationConfig = {
   nl_organisationName: "ProRail",
@@ -7,12 +8,13 @@ const organisationConfig = {
 
   logos: [{
     src: "https://www.prorail.nl/static/assets/brands/default/images/logo_default.svg?v=20250513",
-      alt: "Prorail",
-      id: "Prorail",
-      height: 29,
-      width: 130,
-      url: "https://www.prorail.nl/"
+    alt: "Prorail",
+    id: "Prorail",
+    height: 29,
+    width: 130,
+    url: "https://www.prorail.nl/"
   }],
+
   useLogo: true,
 
   fileName: "",
@@ -25,7 +27,7 @@ const organisationConfig = {
   acceptedDomains: [
     'respec',
     'rttp',
-    'cm',    
+    'cm',
   ],
 
   localizationStrings: {
@@ -49,6 +51,7 @@ const organisationConfig = {
       bd: "Governance documentation",
       bp: "Best practice",
     },
+
     nl: {
       wv: "Werkversie",
       cv: "Consultatieversie",
@@ -61,7 +64,7 @@ const organisationConfig = {
       no: "Norm",
       st: "Standaard",
       ia: "Informatiearchitectuur",
-      im: "Informatiemodel",      
+      im: "Informatiemodel",
       pr: "Praktijkrichtlijn",
       hr: "Handreiking",
       wa: "Werkafspraak",
@@ -78,9 +81,10 @@ const organisationConfig = {
       wv: `Dit is een werkversie die op elk moment kan worden gewijzigd, verwijderd of vervangen door andere documenten. Het is geen stabiel document.`,
       cv: `Dit is een consultatieversie.`,
       vv: `Dit is de definitieve conceptversie van dit document. Wijzigingen naar aanleiding van consultaties zijn doorgevoerd.`,
-      basis: "Dit is een document zonder officiÃ«le status.",
+      basis: "Dit is een document zonder officiële status.",
       ld: "Dit is een levend document dat regelmatig gewijzigd wordt.",
     },
+
     en: {
       sotd: "Status of this document",
       def: `This is the definitive version of this document. Edits resulting from consultations have been applied.`,
@@ -91,7 +95,7 @@ const organisationConfig = {
       ld: "This is a living document, which is updated regularly.",
     },
   },
- 
+
   labelColor: {
     def: "#bf1238",
     wv: "#c2d533",
@@ -100,6 +104,7 @@ const organisationConfig = {
     basis: "#535266",
     ld: "#2c2a3b",
   },
+
   useLabel: true,
 
   licenses: {
@@ -109,12 +114,14 @@ const organisationConfig = {
       url: "https://creativecommons.org/publicdomain/zero/1.0/",
       image: "https://gitdocumentatie.logius.nl/publicatie/respec/media/logos/cc-zero.svg",
     },
+
     "cc-by": {
       name: "Creative Commons Attribution 4.0 International Public License",
       short: "CC-BY",
       url: "https://creativecommons.org/licenses/by/4.0/legalcode",
       image: "https://gitdocumentatie.logius.nl/publicatie/respec/media/logos/cc-by.svg",
     },
+
     "cc-by-nd": {
       name: "Creative Commons Naamsvermelding-GeenAfgeleideWerken 4.0 Internationaal",
       short: "CC-BY-ND",
@@ -122,6 +129,7 @@ const organisationConfig = {
       image: "https://gitdocumentatie.logius.nl/publicatie/respec/media/logos/cc-by-nd.svg",
     },
   },
+
   license: "cc-by",
 
   localBiblio: {
@@ -136,19 +144,24 @@ const organisationConfig = {
   }
 };
 
+
 function prependSectionToBodyAndCreateIfNotExists(document, sectionId) {
   let section = document.getElementById(sectionId);
+
   if (section === null) {
     section = document.createElement('section');
     section.id = sectionId;
   }
+
   section.classList.add('introductory');
   document.body.prepend(section);
 }
 
+
 function missingOrIsEmpty(persons) {
   return persons === undefined || persons.length === 0;
 }
+
 
 /**
  * Laad Respec met een `localConfig`, waarbij default waarden uit een
@@ -180,55 +193,77 @@ export function loadRespecWithConfiguration(localConfig) {
     ...localConfig,
   };
 
-  respecConfig.acceptedDomains = [
-    ...organisationConfig.acceptedDomains,
-    ...(localConfig.acceptedDomains || []),
-  ];
+  // acceptedDomains kan per standaard worden overschreven.
+  respecConfig.acceptedDomains =
+    localConfig.acceptedDomains ?? organisationConfig.acceptedDomains;
 
   respecConfig.localBiblio = {
     ...organisationConfig.localBiblio,
     ...localConfig.localBiblio,
   };
 
-
-}
-
   respecConfig.preProcess = [
     ...(localConfig.preProcess || []),
+
     (config, document, utils) => {
-       if (!config.acceptedDomains.includes(config.pubDomain)) {
-        utils.showError(`Invalid pubDomain. Must be one of ${config.acceptedDomains.join(', ')}, but was "${config.pubDomain}"`
-         );
+      if (!config.acceptedDomains.includes(config.pubDomain)) {
+        utils.showError(
+          `Invalid pubDomain. Must be one of ${config.acceptedDomains.join(', ')}, but was "${config.pubDomain}"`
+        );
       }
+
       // Alleen fundament heeft een Engelse versie die we toestaan als sub-shortname
-      if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/.test(config.shortName) && config.shortName !== "fundament/en") {
-        utils.showError(`Invalid shortName. Must be in kebab-case (only lowercase letters and potentially separated by dashes), but was "${config.shortName}"`);
+      if (
+        !/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/.test(config.shortName) &&
+        config.shortName !== "fundament/en"
+      ) {
+        utils.showError(
+          `Invalid shortName. Must be in kebab-case (only lowercase letters and potentially separated by dashes), but was "${config.shortName}"`
+        );
       }
+
       if (missingOrIsEmpty(config.github)) {
         utils.showError('No github link specified in configuration.');
       }
+
       if (missingOrIsEmpty(config.editors)) {
         utils.showError('No editors specified in configuration.');
       }
+
       if (missingOrIsEmpty(config.authors)) {
         utils.showError('No authors specified in configuration.');
       }
-      for (const person of [...(config.editors || []), ...(config.authors || [])]) {
+
+      for (const person of [
+        ...(config.editors || []),
+        ...(config.authors || [])
+      ]) {
         if (!('companyURL' in person)) {
           continue;
         }
-        if (person.companyURL.includes("logius.nl") && person.companyURL !== "https://www.logius.nl") {
-          utils.showError(`companyURL of an editor/author of Logius must be "https://www.logius.nl", instead it was "${person.companyURL}"`);
+
+        if (
+          person.companyURL.includes("logius.nl") &&
+          person.companyURL !== "https://www.logius.nl"
+        ) {
+          utils.showError(
+            `companyURL of an editor/author of Logius must be "https://www.logius.nl", instead it was "${person.companyURL}"`
+          );
         }
+
         if (person.companyURL.includes("github.com")) {
-          utils.showError(`companyURL of an editor/author must link to a website of an organisation (not GitHub), instead it was ${person.companyURL}`);
+          utils.showError(
+            `companyURL of an editor/author must link to a website of an organisation (not GitHub), instead it was ${person.companyURL}`
+          );
         }
       }
     },
+
     (config, document, utils) => {
       if (config.specStatus.toLowerCase() !== 'cv') {
         return;
       }
+
       let email;
       let overleg;
 
@@ -245,7 +280,10 @@ export function loadRespecWithConfiguration(localConfig) {
           overleg = "Notificeren";
         } else if (config.pubDomain === "logboek") {
           overleg = "LDV";
-        } else if (config.shortName.startsWith("oauth") || config.shortName === "oidc") {
+        } else if (
+          config.shortName.startsWith("oauth") ||
+          config.shortName === "oidc"
+        ) {
           overleg = "OAuth";
         } else {
           overleg = "API";
@@ -255,12 +293,14 @@ export function loadRespecWithConfiguration(localConfig) {
       for (const texts of Object.values(config.sotdText)) {
         texts.cv = texts.cv.replace(/\w+@logius\.nl/, email);
       }
+
       // Zodat het kan worden uitgelezen bij het aanmaken van de consultatie README
       utils.amendConfiguration({
         emailForConsultation: email,
         technischOverleg: overleg,
       });
     },
+
     (config, document) => {
       // Secties worden toegevoegd in omgekeerde volgorde. Dus de
       // sectie die hier als laatste staat, komt als eerste voor
@@ -268,19 +308,30 @@ export function loadRespecWithConfiguration(localConfig) {
       prependSectionToBodyAndCreateIfNotExists(document, 'conformance');
       prependSectionToBodyAndCreateIfNotExists(document, 'sotd');
     },
+
     (config, document, utils) => {
       if (!config.alternateFormats) {
         config.alternateFormats = [];
       }
-      const pdfName = `${config.pubDomain}-${config.shortName.replace(/\//, '-')}-${config.publishVersion}.pdf`;
-      const existingFormat = config.alternateFormats.find(format => format.label.toLowerCase() === 'pdf');
+
+      const pdfName =
+        `${config.pubDomain}-${config.shortName.replace(/\//, '-')}-${config.publishVersion}.pdf`;
+
+      const existingFormat = config.alternateFormats.find(
+        format => format.label.toLowerCase() === 'pdf'
+      );
+
       if (existingFormat) {
         if (existingFormat.uri !== pdfName) {
-          utils.showError(`Invalid name for PDF format. Expected "${pdfName}", but got "${existingFormat.uri}".
-            Consider removing the PDF format from 'config.alternateFormats', as it is automatically generated already.`);
+          utils.showError(
+            `Invalid name for PDF format. Expected "${pdfName}", but got "${existingFormat.uri}".
+            Consider removing the PDF format from 'config.alternateFormats', as it is automatically generated already.`
+          );
         }
+
         return;
       }
+
       config.alternateFormats.push({
         label: 'PDF',
         uri: pdfName,
@@ -290,30 +341,43 @@ export function loadRespecWithConfiguration(localConfig) {
 
   respecConfig.postProcess = [
     ...(localConfig.postProcess || []),
+
     (config, document, utils) => {
-      if (!document.title.toLowerCase().replaceAll(/\W/g, '').includes("nlgov")) {
+      if (
+        !document.title
+          .toLowerCase()
+          .replaceAll(/\W/g, '')
+          .includes("nlgov")
+      ) {
         return;
       }
+
       if (!document.title.includes("NLgov")) {
-        utils.showError(`Invalid title of standard. Any Dutch profile maintained for the Dutch government must use "NLgov" as tag, preferably at the start of the title.`);
+        utils.showError(
+          `Invalid title of standard. Any Dutch profile maintained for the Dutch government must use "NLgov" as tag, preferably at the start of the title.`
+        );
       }
     },
+
     (config, document) => {
       if (!config.spellcheck) {
         return;
       }
+
       const removableElements = [
         // Contains author and editor names that don't match any dictionary
         document.querySelector('.head'),
+
         // Contain name of standards and their authors, which don't match
-        // any dictionary
         document.getElementById('references'),
         ...document.getElementsByClassName('bibref'),
         ...document.querySelectorAll('[data-cite]'),
+
         // Any particular part of a standard that is custom and doesn't need
         // checking, such as Dutch context in an English standard
         ...document.getElementsByClassName('remove-for-spellcheck'),
       ];
+
       for (const element of removableElements) {
         element?.remove();
       }
@@ -322,5 +386,7 @@ export function loadRespecWithConfiguration(localConfig) {
 
   globalThis.respecConfig = respecConfig;
 
-  import("https://logius-standaarden.github.io/publicatie/respec/builds/respec-nlgov.js");
+  import(
+    "https://logius-standaarden.github.io/publicatie/respec/builds/respec-nlgov.js"
+  );
 }
