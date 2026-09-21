@@ -22,6 +22,18 @@ const organisationConfig = {
 
   addSectionLinks: true,
 
+  acceptedDomains: [
+    'api',
+    'bomos',
+    'dk',
+    'digimelding',
+    'fsc',
+    'ftv',
+    'logboek',
+    'notificatieservices',
+    'st',
+  ],
+
   localizationStrings: {
     en: {
       wv: "Editor's draft",
@@ -174,17 +186,25 @@ export function loadRespecWithConfiguration(localConfig) {
     ...localConfig,
   };
 
+  respecConfig.acceptedDomains = [
+    ...organisationConfig.acceptedDomains,
+    ...(localConfig.acceptedDomains || []),
+  ];
+
   respecConfig.localBiblio = {
     ...organisationConfig.localBiblio,
     ...localConfig.localBiblio,
   };
 
+
+}
+
   respecConfig.preProcess = [
     ...(localConfig.preProcess || []),
     (config, document, utils) => {
-      const ACCEPTED_DOMAINS = ['api', 'bomos', 'dk', 'digimelding', 'fsc', 'ftv', 'logboek', 'notificatieservices', 'st'];
-      if (!ACCEPTED_DOMAINS.includes(config.pubDomain)) {
-        utils.showError(`Invalid pubDomain. Must be one of ${ACCEPTED_DOMAINS}, but was "${config.pubDomain}"`);
+       if (!config.acceptedDomains.includes(config.pubDomain)) {
+        utils.showError(`Invalid pubDomain. Must be one of ${config.acceptedDomains.join(', ')}, but was "${config.pubDomain}"`
+         );
       }
       // Alleen fundament heeft een Engelse versie die we toestaan als sub-shortname
       if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/.test(config.shortName) && config.shortName !== "fundament/en") {
