@@ -23,15 +23,9 @@ const organisationConfig = {
   addSectionLinks: true,
 
   acceptedDomains: [
-    'api',
-    'bomos',
-    'dk',
-    'digimelding',
-    'fsc',
-    'ftv',
-    'logboek',
-    'notificatieservices',
-    'st',
+    'respec',
+    'rttp',
+    'cm',    
   ],
 
   localizationStrings: {
