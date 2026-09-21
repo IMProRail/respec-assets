@@ -1,4 +1,4 @@
-// Dit bestand is gepubliceerd als https://improrail.github.io/respec-assets/js/prorail-config.js, voor hergebruik in IMProRail ReSpec documenten.
+// Dit bestand is gepubliceerd als https://improrail.github.io/respec-assets/js/prorail-config.mjs, voor hergebruik in IMProRail ReSpec documenten.
 
 const organisationConfig = {
   nl_organisationName: "ProRail",
