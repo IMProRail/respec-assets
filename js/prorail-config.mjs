@@ -178,7 +178,7 @@ function missingOrIsEmpty(persons) {
  * In `js/config.mjs` moet het volgende staan:
  *
  * ```js
- * import { loadRespecWithConfiguration } from "https://logius-standaarden.github.io/publicatie/respec/organisation-config.mjs";
+ * import { loadRespecWithConfiguration } from "https://improrail.github.io/respec-assets/js/prorail-config.mjs";
  *
  * loadRespecWithConfiguration({
  *   <Zet de standaard specifieke configuratie hier>
@@ -243,11 +243,11 @@ export function loadRespecWithConfiguration(localConfig) {
         }
 
         if (
-          person.companyURL.includes("logius.nl") &&
-          person.companyURL !== "https://www.logius.nl"
+          person.companyURL.includes("prorail.nl") &&
+          person.companyURL !== "https://www.prorail.nl"
         ) {
           utils.showError(
-            `companyURL of an editor/author of Logius must be "https://www.logius.nl", instead it was "${person.companyURL}"`
+            `companyURL of an editor/author of Logius must be "https://www.prorail.nl", instead it was "${person.companyURL}"`
           );
         }
 
