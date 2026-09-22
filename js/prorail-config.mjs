@@ -350,13 +350,21 @@ export function loadRespecWithConfiguration(localConfig) {
   // Maak de configuratie beschikbaar voor ReSpec.
   globalThis.respecConfig = respecConfig;
 
-  // Laad de NLGov ReSpec-build als klassiek script.
+  // Laad de NLGov ReSpec-build en Respec-Highlight-Build als klassiek script.
   // Dit voorkomt de CORS-beperking van een dynamische ES-module-import.
-  const script = document.createElement("script");
-  script.src =
-    "https://gitdocumentatie.logius.nl/publicatie/respec/builds/respec-nlgov.js";
-  script.className = "remove";
-  script.async = true;
+  const respecScript = document.createElement("script");
+respecScript.src =
+  "https://gitdocumentatie.logius.nl/publicatie/respec/builds/respec-nlgov.js";
+respecScript.className = "remove";
 
-  document.head.appendChild(script);
+respecScript.onload = () => {
+  const highlightScript = document.createElement("script");
+  highlightScript.src =
+    "https://gitdocumentatie.logius.nl/publicatie/respec/builds/respec-highlight.js";
+  highlightScript.className = "remove";
+
+  document.head.appendChild(highlightScript);
+};
+
+document.head.appendChild(respecScript);
 }
