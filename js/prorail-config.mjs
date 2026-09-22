@@ -388,9 +388,6 @@ export function loadRespecWithConfiguration(localConfig) {
   ];
 
   globalThis.respecConfig = respecConfig;
-
-  import(
-    "https://logius-standaarden.github.io/publicatie/respec/builds/respec-nlgov.js"
-  );
+  
 }
 
