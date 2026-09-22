@@ -318,10 +318,10 @@ export function loadRespecWithConfiguration(localConfig) {
         return;
       }
 
-      config.alternateFormats.push({
-        label: "PDF",
-        uri: pdfName,
-      });
+      //config.alternateFormats.push({
+      //  label: "PDF",
+     //   uri: pdfName,
+    //  });
     }
   ];
 
