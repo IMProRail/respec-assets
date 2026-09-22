@@ -304,6 +304,8 @@ export function loadRespecWithConfiguration(localConfig) {
       const pdfName =
         `${config.pubDomain}-${config.shortName.replace(/\//, "-")}-${config.publishVersion}.pdf`;
 
+      const docxName = pdfName.replace(".pdf", ".docx");
+
       const existingFormat = config.alternateFormats.find(
         format => format.label.toLowerCase() === "pdf"
       );
@@ -318,10 +320,16 @@ export function loadRespecWithConfiguration(localConfig) {
         return;
       }
 
-      //config.alternateFormats.push({
-      //  label: "PDF",
-     //   uri: pdfName,
-    //  });
+      config.alternateFormats.push({
+        label: "📄 PDF",
+        uri: pdfName,
+   /  });
+
+      config.alternateFormats.push({
+        label: "📝 DOCX",
+        uri: docxName,
+      });
+
     }
   ];
 
