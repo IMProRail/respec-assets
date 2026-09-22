@@ -1,0 +1,75 @@
+name: Build
+on:
+  workflow_call:
+    inputs:
+      workflow_input_file_names:
+        default: '["index.html"]'
+        type: string
+jobs:
+  main:
+    name: Snapshot
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        source_input_file_name: ${{ fromJSON(inputs.workflow_input_file_names) }}
+    steps:
+      - run: mkdir ~/static
+      - uses: actions/checkout@v4
+      - name: Use Node.js 24
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24.x'
+      - name: Check correcte branch
+        if: github.event_name == 'pull_request'
+        run: |
+          if ${{ github.head_ref == 'develop' &&  (github.base_ref == 'main' || github.base_ref == 'master') }}; then
+            echo "Maak geen directe PR aan vanaf develop naar ${{ github.base_ref }}."
+            echo "In plaats daarvan, maak een branch vanaf develop en maak daar een PR van naar ${{ github.base_ref }}."
+            echo "Hiermee voorkomen we dat we per ongeluk een werkversie (die vanaf develop komt) als definitieve versie neerzetten."
+            exit 1
+          fi
+          if ${{ (github.head_ref == 'main' || github.head_ref == 'master') &&  github.base_ref == 'develop' }}; then
+            echo "Maak geen directe PR aan vanaf ${{ github.head_ref }} naar develop."
+            echo "In plaats daarvan, maak een branch vanaf ${{ github.head_ref }} en maak daar een PR van naar develop."
+            echo "Hiermee voorkomen we dat we per ongeluk een definitieve versie (die vanaf ${{ github.head_ref }} komt) als werkversie neerzetten."
+            exit 1
+          fi
+          if ${{ github.base_ref == 'main' || github.base_ref == 'master' }}; then
+            HAS_DEF_STATUS=$(grep -i "^\s*specStatus:\s*['\"](def|vv)['\"]" js/config.mjs || true)
+
+            if [ -z "$HAS_DEF_STATUS" ]; then
+              echo "Zet de specStatus op DEF voor publicatie"
+              exit 1
+            fi
+          fi
+          if ${{ github.base_ref == 'develop' }}; then
+            HAS_WV_STATUS=$(grep -i "specStatus:\s*['\"]wv['\"]" js/config.mjs || true)
+
+            if [ -z "$HAS_WV_STATUS" ]; then
+              echo "Zet de specStatus op WV voor een werkversie"
+              exit 1
+            fi
+          fi
+      - name: Prepareer consultatieversie
+        if: ${{ startsWith(github.head_ref, 'consultatie/') }}
+        run: |
+          REPLACEMENT_REGEX="s/specStatus: ['\"][a-zA-Z]*['\"]/specStatus: \"cv\"/"
+          sed -i "$REPLACEMENT_REGEX" js/config.mjs
+      - name: Static HTML
+        run: |
+          npx respec --localhost --src ${{ matrix.source_input_file_name }} --out ~/static/${{ matrix.source_input_file_name }} --haltonwarn
+      - name: PDF
+        run: |
+         cp ~/static/${{ matrix.source_input_file_name }} ${{ matrix.source_input_file_name }}
+         npm i puppeteer
+         python3 -m http.server 8080 &
+         wget https://improrail.github.io/respec-assets/js/pdf.js
+         rm -f *.pdf
+         node pdf.js ${{ matrix.source_input_file_name }}
+         find *.pdf
+         mv *.pdf ~/static/
+      - name: Create cache
+        uses: actions/cache/save@v4
+        with:
+          path: ~/static
+          key: ${{ github.run_id }}${{ strategy.job-total > 1 && format('-{0}', matrix.source_input_file_name) }}
