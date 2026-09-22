@@ -387,7 +387,19 @@ export function loadRespecWithConfiguration(localConfig) {
   globalThis.respecConfig = respecConfig;
  
 
- import(
-    "https://gitdocumentatie.logius.nl/publicatie/respec/builds/respec-nlgov.js"
-  );
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.async = true;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
+await loadScript(
+  "https://gitdocumentatie.logius.nl/publicatie/respec/builds/respec-nlgov.js"
+);
+
 }
