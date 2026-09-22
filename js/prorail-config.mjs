@@ -388,6 +388,17 @@ export function loadRespecWithConfiguration(localConfig) {
   ];
 
   globalThis.respecConfig = respecConfig;
+
+  globalThis.respecConfig = respecConfig;
+
+const script = document.createElement("script");
+script.src =
+  "https://gitdocumentatie.logius.nl/publicatie/respec/builds/respec-nlgov.js";
+script.className = "remove";
+script.async = true;
+
+document.head.appendChild(script);
+  
   
 }
 
