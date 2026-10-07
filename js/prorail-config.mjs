@@ -323,7 +323,7 @@ export function loadRespecWithConfiguration(localConfig) {
       config.alternateFormats.push({
         label: "📄 PDF",
         uri: pdfName,
-   /  });
+     });
 
       config.alternateFormats.push({
         label: "📝 DOCX",
