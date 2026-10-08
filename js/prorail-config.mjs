@@ -236,6 +236,9 @@ export function loadRespecWithConfiguration(localConfig) {
   respecConfig.preProcess = [
     ...(localConfig.preProcess || []),
 
+    
+    document.title = config.title;
+    
     (config, document, utils) => {
       if (!config.acceptedDomains.includes(config.pubDomain)) {
         utils.showError(
@@ -397,8 +400,6 @@ export function loadRespecWithConfiguration(localConfig) {
       for (const element of removableElements) {
         element?.remove();
       }
-
-      document.title = config.title;
     }
   ];
 
