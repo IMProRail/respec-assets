@@ -58,6 +58,7 @@ const organisationConfig = {
   //edDraftURI: ["https://improrail.github.io", "/", "shortName", "/"],
 
   addSectionLinks: true,
+  postProcess: [window.respecMermaid.createFigures],
 
   acceptedDomains: [
     "respec",
