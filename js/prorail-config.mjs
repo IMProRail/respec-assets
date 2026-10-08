@@ -43,7 +43,7 @@ const organisationConfig = {
     "/",
     "shortName",
     "/",
-    "previousPublishVersion",
+    "previousPublishDate",
     "/",
     "fileName"
   ],
@@ -390,17 +390,6 @@ export function loadRespecWithConfiguration(localConfig) {
       }
     }
   ];
-
-  // Voeg organisatie- en lokale configuratie samen.
-  //respecConfig.localBiblio: {
-   //   ...organisationConfig.localBiblio,
-   //   ...respecConfig.localBiblio
- //   },
-  //  postProcess: [
- //     ...(organisationConfig.postProcess || []),
- //     ...(respecConfig.postProcess || [])
- //   ]
- // };
 
   // Maak de configuratie beschikbaar voor ReSpec.
   globalThis.respecConfig = respecConfig;
