@@ -418,8 +418,7 @@ respecScript.onload = () => {
 
   document.head.appendChild(highlightScript);
 };
-
+document.head.title = respecConfig.title;
 document.head.appendChild(respecScript);
 }
 
-document.head.title = respecConfig.title;
