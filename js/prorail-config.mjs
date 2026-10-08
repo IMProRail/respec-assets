@@ -237,9 +237,9 @@ export function loadRespecWithConfiguration(localConfig) {
     ...(localConfig.preProcess || []),
 
     
-    document.title = config.title;
     
     (config, document, utils) => {
+      document.title = config.title;
       if (!config.acceptedDomains.includes(config.pubDomain)) {
         utils.showError(
           `Invalid pubDomain. Must be one of ${config.acceptedDomains.join(", ")}, but was "${config.pubDomain}"`
