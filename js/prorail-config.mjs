@@ -296,39 +296,77 @@ export function loadRespecWithConfiguration(localConfig) {
       );
     },
 
+     
+    /****************************************
+     * AlternateFormats
+     ****************************************/
+    
+    
     (config, document, utils) => {
       if (!config.alternateFormats) {
         config.alternateFormats = [];
-      }
+      }      
 
       const pdfName =
         `${config.pubDomain}-${config.shortName.replace(/\//, "-")}-${config.publishVersion}.pdf`;
 
       const docxName = pdfName.replace(".pdf", ".docx");
 
+
+      /*
+      // PDF check
       const existingFormat = config.alternateFormats.find(
         format => format.label.toLowerCase() === "pdf"
       );
 
       if (existingFormat) {
-        if (existingFormat.uri !== pdfName) {
-          utils.showError(
-            `Invalid name for PDF format. Expected "${pdfName}", but got "${existingFormat.uri}". Consider removing the PDF format from config.alternateFormats, as it is automatically generated already.`
+        if (pdfName !== null && existingFormat.uri !== pdfName) {
+          utils.showWarning(
+            `Different name for PDF format. Expected "${pdfName}", but got "${existingFormat.uri}". Consider removing the PDF format from config.alternateFormats, as it is automatically generated already.`
           );
         }
+      }    
+      
+      // DOCX check      
+      const existingFormat = config.alternateFormats.find(
+        format => format.label.toLowerCase() === "docx"
+      );
 
-        return;
+      if (existingFormat) {
+        if (docxName !== null && existingFormat.uri !== docxName) {
+          utils.showWarning(
+            `Different name for PDF format. Expected "${docxName}", but got "${existingFormat.uri}". Consider removing the PDF format from config.alternateFormats, as it is automatically generated already.`
+          );
+          docxName = existingFormat.uri
+        }
+      }   
+      */
+
+      if (config.alternateFormats?.some(format => format.label.toLowerCase() === "pdf")) {
+        config.alternateFormats = config.alternateFormats.filter(
+          format => format.label.toLowerCase() !== "pdf"
+        );
+
+        config.alternateFormats.push({
+          label: "PDF",
+          uri: pdfName,
+        });
       }
 
-      config.alternateFormats.push({
-        label: "📄 PDF",
-        uri: pdfName,
-     });
 
-      config.alternateFormats.push({
-        label: "📝 DOCX",
-        uri: docxName,
-      });
+     if (config.alternateFormats?.some(format => format.label.toLowerCase() === "docx")) {
+        config.alternateFormats = config.alternateFormats.filter(
+          format => format.label.toLowerCase() !== "pdf"
+        );
+
+        config.alternateFormats.push({
+          label: "DOCX",
+          uri: docxName,
+        });
+      }
+
+
+      // EO Alternate Formats
 
     }
   ];
@@ -354,18 +392,15 @@ export function loadRespecWithConfiguration(localConfig) {
   ];
 
   // Voeg organisatie- en lokale configuratie samen.
-  respecConfig = {
-    ...organisationConfig,
-    ...respecConfig,
-    localBiblio: {
-      ...organisationConfig.localBiblio,
-      ...respecConfig.localBiblio
-    },
-    postProcess: [
-      ...(organisationConfig.postProcess || []),
-      ...(respecConfig.postProcess || [])
-    ]
-  };
+  //respecConfig.localBiblio: {
+   //   ...organisationConfig.localBiblio,
+   //   ...respecConfig.localBiblio
+ //   },
+  //  postProcess: [
+ //     ...(organisationConfig.postProcess || []),
+ //     ...(respecConfig.postProcess || [])
+ //   ]
+ // };
 
   // Maak de configuratie beschikbaar voor ReSpec.
   globalThis.respecConfig = respecConfig;
