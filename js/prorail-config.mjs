@@ -24,8 +24,7 @@ const organisationConfig = {
     "pubDomain",
     "/",
     "shortName",
-    "/",
-  
+    "/",  
   ],
   
   thisVersion: [
@@ -55,6 +54,8 @@ const organisationConfig = {
     "previousPublishDate",
     "/",
   ],
+
+  edDraftURI: ["https://improrail.github.io", "/", "shortName"],
 
   addSectionLinks: true,
 
