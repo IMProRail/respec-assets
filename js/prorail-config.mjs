@@ -397,6 +397,8 @@ export function loadRespecWithConfiguration(localConfig) {
       for (const element of removableElements) {
         element?.remove();
       }
+
+      document.title = config.title;
     }
   ];
 
@@ -418,7 +420,6 @@ respecScript.onload = () => {
 
   document.head.appendChild(highlightScript);
 };
-document.head.title = respecConfig.title;
 document.head.appendChild(respecScript);
 }
 
