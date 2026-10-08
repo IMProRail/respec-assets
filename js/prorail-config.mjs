@@ -55,7 +55,7 @@ const organisationConfig = {
     "/",
   ],
 
-  edDraftURI: ["https://improrail.github.io", "/", "shortName", /"],
+  edDraftURI: ["https://improrail.github.io", "/", "shortName", "/"],
 
   addSectionLinks: true,
 
@@ -421,3 +421,5 @@ respecScript.onload = () => {
 
 document.head.appendChild(respecScript);
 }
+
+document.head.title = respecConfig.title;
