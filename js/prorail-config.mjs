@@ -31,21 +31,26 @@ const organisationConfig = {
     "nl_organisationPublishURL",
     "pubDomain",
     "/",
+    "specStatus",
+    "-",
+    "specType",
+    "-",
     "shortName",
-    "/",
-    "publishVersion",
-    "/",
-    "fileName"
+    "-",
+    "publishDate"
   ],
+
   prevVersion: [
     "nl_organisationPublishURL",
     "pubDomain",
     "/",
+    "previousMaturity",
+    "-",
+    "specType",
+    "-",
     "shortName",
-    "/",
-    "previousPublishDate",
-    "/",
-    "fileName"
+    "-",
+    "previousPublishDate"
   ],
 
   addSectionLinks: true,
