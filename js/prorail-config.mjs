@@ -25,8 +25,9 @@ const organisationConfig = {
     "/",
     "shortName",
     "/",
-    "fileName"
+  
   ],
+  
   thisVersion: [
     "nl_organisationPublishURL",
     "pubDomain",
@@ -37,7 +38,8 @@ const organisationConfig = {
     "-",
     "shortName",
     "-",
-    "publishDate"
+    "publishDate",
+    "/",
   ],
 
   prevVersion: [
@@ -50,7 +52,8 @@ const organisationConfig = {
     "-",
     "shortName",
     "-",
-    "previousPublishDate"
+    "previousPublishDate",
+    "/",
   ],
 
   addSectionLinks: true,
