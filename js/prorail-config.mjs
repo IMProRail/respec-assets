@@ -337,9 +337,7 @@ export function loadRespecWithConfiguration(localConfig) {
     ...(localConfig.postProcess || []),
 
     (config, document) => {
-      if (!config.spellcheck) {
-        return;
-      }
+      if (!config.spellcheck) return;
 
       const removableElements = [
         document.querySelector(".head"),
@@ -354,6 +352,20 @@ export function loadRespecWithConfiguration(localConfig) {
       }
     }
   ];
+
+  // Voeg organisatie- en lokale configuratie samen.
+  respecConfig = {
+    ...organisationConfig,
+    ...respecConfig,
+    localBiblio: {
+      ...organisationConfig.localBiblio,
+      ...respecConfig.localBiblio
+    },
+    postProcess: [
+      ...(organisationConfig.postProcess || []),
+      ...(respecConfig.postProcess || [])
+    ]
+  };
 
   // Maak de configuratie beschikbaar voor ReSpec.
   globalThis.respecConfig = respecConfig;
